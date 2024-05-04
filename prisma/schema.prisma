@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id         String       @id @default(uuid())
+  username   String       @unique
+  email      String       @unique
+  password   String
+  firstName  String
+  lastName   String
+  courses    Course[]
+  submission Submission[]
+}
+
+model Instructor {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  courses   Course[] //Relationship to courses taught by the instructor
+}
+
+model Administrator {
+  id        String @id @default(uuid())
+  username  String @unique
+  email     String @unique
+  password  String
+  firstName String
+  lastName  String
+}
+
+model Course {
+  id           String       @id @default(uuid())
+  title        String
+  description  String
+  startDate    DateTime
+  endDate      DateTime
+  instructorId String
+  instructor   Instructor   @relation(fields: [instructorId], references: [id])
+  students     Student[]
+  assignments  Assignment[]
+}
+
+model Assignment {
+  id          String       @id @default(uuid())
+  title       String
+  description String
+  dueDate     DateTime
+  courseId    String
+  course      Course       @relation(fields: [courseId], references: [id])
+  submissions Submission[]
+}
+
+model Submission {
+  id           String     @id @default(uuid())
+  content      String
+  submittedAt  DateTime
+  grade        Int
+  assignmentId String
+  studentId    String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  student      Student    @relation(fields: [studentId], references: [id])
+}
