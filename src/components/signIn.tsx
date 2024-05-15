@@ -1,6 +1,6 @@
 import { signIn } from '@/lib/auth'
 
-export function SignIn() {
+const SignIn = () => {
   return (
     <form
       action={async () => {
@@ -12,3 +12,5 @@ export function SignIn() {
     </form>
   )
 }
+
+export default SignIn
