@@ -1,10 +1,8 @@
-import { SignIn } from '@/components'
-
 export default function Home() {
   return (
     <div>
-      <h1>Home</h1>
-      <SignIn />
+      <h1>This is the title</h1>
+      <p>This is a paragraph</p>
     </div>
   )
 }
