@@ -1,10 +1,7 @@
-import { SignIn } from '@/components'
-
 export default function Home() {
   return (
-    <div>
+    <div className="page__container">
       <h1>Home</h1>
-      <SignIn />
     </div>
   )
 }
