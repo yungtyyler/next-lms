@@ -1,3 +1,7 @@
 export default function ErrorPage() {
-  return <p>Sorry, something went wrong</p>
+  return (
+    <div className="page__container">
+      <p>Sorry, something went wrong</p>
+    </div>
+  )
 }

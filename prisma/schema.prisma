@@ -25,48 +25,49 @@ model User {
   username  String   @unique
   email     String   @unique
   password  String
-  firstName String
-  lastName  String
-  dob       DateTime
-  phone     String
-  avatar    String
-  address   String
-  bio       String
+  firstName String?
+  lastName  String?
+  dob       DateTime?
+  phone     String?
+  avatar    String?
+  address   String?
+  bio       String?
   role      UserRole @default(USER)
 }
 
 model Student {
   id          String       @id @default(uuid())
-  major       String
-  gpa         Float
-  enrolledAt  DateTime
-  graduatedAt DateTime
+  major       String?      
+  gpa         Float?       
+  enrolledAt  DateTime?    
+  graduatedAt DateTime?    
   courses     Course[]
   submission  Submission[]
 }
 
+
 model Instructor {
   id             String   @id @default(uuid())
-  bio            String
-  officeLocation String
-  officeHours    String
-  department     String
-  joinedAt       DateTime
+  bio            String?  
+  officeLocation String?  
+  officeHours    String?  
+  department     String?  
+  joinedAt       DateTime? 
   courses        Course[]
 }
 
 model Administrator {
   id        String   @id @default(uuid())
-  lastLogin DateTime
-  joinedAt  DateTime
+  lastLogin DateTime? 
+  joinedAt  DateTime @default(now())
 }
 
 model Course {
   id           String       @id @default(uuid())
   title        String
-  description  String
-  startDate    DateTime
-  endDate      DateTime
+  description  String?      
+  startDate    DateTime?    
+  endDate      DateTime?    
   instructorId String
   instructor   Instructor   @relation(fields: [instructorId], references: [id])
   students     Student[]
@@ -76,8 +77,8 @@ model Course {
 model Assignment {
   id          String       @id @default(uuid())
   title       String
-  description String
-  dueDate     DateTime
+  description String?      
+  dueDate     DateTime?    
   courseId    String
   course      Course       @relation(fields: [courseId], references: [id])
   submissions Submission[]
@@ -85,9 +86,9 @@ model Assignment {
 
 model Submission {
   id           String     @id @default(uuid())
-  content      String
-  submittedAt  DateTime
-  grade        Int
+  content      String?    
+  submittedAt  DateTime?  
+  grade        Int?       
   assignmentId String
   studentId    String
   assignment   Assignment @relation(fields: [assignmentId], references: [id])
